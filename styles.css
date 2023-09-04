@@ -5,7 +5,7 @@
     width: 150px;
     padding: 15px;
     color: white;
-    background-color: green;
+    background-color: black;
     text-align: center;
     cursor: pointer;
     float: left;
@@ -13,7 +13,7 @@
 }
 .game-table{
     border-collapse: collapse;
-    background-color: #3e3e3e;
+    background-color: gray;
 }
 td.game-table-cell{
     width: 15px;
@@ -21,10 +21,10 @@ td.game-table-cell{
     border: 1px dotted #eee;
 }
 .snake-unit{
-    background-color: white;
+    background-color: black;
 }
 .food-unit{
-    background-color: red;
+    background-color: purple;
 }
 .buttons{
     display: inline-block;

@@ -1,13 +1,12 @@
-'use strict';
-var FIELD_SIZE_X = 20;
-var FIELD_SIZE_Y = 20;
-var SNAKE_SPEED = 300;
+var FIELD_SIZE_X = 30;
+var FIELD_SIZE_Y = 30;
+var SNAKE_SPEED = 50;
 var snake = [];
-var direction ='y+';
+var direction = 'y+';
 var gameIsRunning = false;
 var snake_timer;
 var food_timer;
-var score=0;
+var score = 0;
 
 function init() {
     prepareGameField();
@@ -26,13 +25,13 @@ function prepareGameField() {
     var game_table = document.createElement('table');
     game_table.setAttribute('class', 'game-table');
 
-    for (var i=0; i<FIELD_SIZE_X; i++) {
-        var row=document.createElement('tr');
-        row.className='game-table-row'+i;
+    for (var i = 0; i < FIELD_SIZE_X; i++) {
+        var row = document.createElement('tr');
+        row.className = 'game-table-row row-' + i;
 
-        for (var j=0; j<FIELD_SIZE_Y; j++) {
+        for (var j = 0; j < FIELD_SIZE_Y; j++) {
             var cell = document.createElement('td');
-            cell.className='game-table-cell cell-'+i+'-'+j;
+            cell.className = 'game-table-cell cell-' + i + '-' + j;
             row.appendChild(cell);
         }
         game_table.appendChild(row);
@@ -41,11 +40,11 @@ function prepareGameField() {
 }
 
 function startGame() {
-    gameIsRunning=true;
+    gameIsRunning = true;
     respawn();
 
     snake_timer = setInterval(move, SNAKE_SPEED);
-    setTimeout(createFood, 5000)
+    setTimeout(createFood, 50)
 }
 
 function respawn() {
@@ -65,28 +64,28 @@ function respawn() {
 
 function move() {
     var snake_head_classes = snake[snake.length - 1].getAttribute('class').split(' ');
-    
+
     var new_unit;
     var snake_coords = snake_head_classes[1].split('-');
     var coord_y = parseInt(snake_coords[1]);
     var coord_x = parseInt(snake_coords[2]);
 
     if (direction == 'x-') {
-        new_unit = document.getElementsByClassName('cell-'+ (coord_y) + '-' + (coord_x - 1))[0];
+        new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (coord_x - 1))[0];
     }
     else if (direction == 'x+') {
-        new_unit = document.getElementsByClassName('cell-'+ (coord_y) + '-' + (coord_x + 1))[0];
+        new_unit = document.getElementsByClassName('cell-' + (coord_y) + '-' + (coord_x + 1))[0];
     }
-    else if (direction == 'x+') {
-        new_unit = document.getElementsByClassName('cell-'+ (coord_y - 1) + '-' + (coord_x))[0];
+    else if (direction == 'y+') {
+        new_unit = document.getElementsByClassName('cell-' + (coord_y - 1) + '-' + (coord_x))[0];
     }
-    else if (direction == 'x+') {
-        new_unit = document.getElementsByClassName('cell-'+ (coord_y + 1) + '-' + (coord_x))[0];
+    else if (direction == 'y-') {
+        new_unit = document.getElementsByClassName('cell-' + (coord_y + 1) + '-' + (coord_x))[0];
     }
-    if  (!isSnakeUnit(new_unit) && new_unit !== undefined) {
-        new_unit.setAttribute('class', new_unit.getAttribute('class')+ 'snakeunit');
+    if (!isSnakeUnit(new_unit) && new_unit !== undefined) {
+        new_unit.setAttribute('class', new_unit.getAttribute('class') + ' snake-unit');
         snake.push(new_unit);
-    
+
         if (!haveFood(new_unit)) {
             var removed = snake.splice(0, 1)[0];
             var classes = removed.getAttribute('class').split(' ');
@@ -133,7 +132,7 @@ function createFood() {
 
         if (food_cell_classes.includes('snake-unit')) {
             var classes = '';
-            for (var i = 0; i<food_cell_classes.length; i++) {
+            for (var i = 0; i < food_cell_classes.length; i++) {
                 classes += food_cell_classes[i] + ' ';
             }
             food_cell.setAttribute('class', classes + 'food-unit');
@@ -171,7 +170,7 @@ function changeDirection(e) {
 function finishTheGame() {
     gameIsRunning = false;
     clearInterval(snake_timer);
-    alert('You lost... Your Result:' + score.toString());
+    alert('You lost... Your Result: ' + score.toString());
 }
 
 function refreshGame() {
